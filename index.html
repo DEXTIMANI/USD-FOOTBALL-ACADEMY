@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>USD Football Academy</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--green:#00ff88;
+--gold:#ffd84d;
+--dark:#050505;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+body{
+background:var(--dark);
+color:white;
+overflow-x:hidden;
+}
+
+/* 🌌 PARTICLE CANVAS */
+#particles{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:0;
+pointer-events:none;
+}
+
+/* NAV */
+nav{
+position:fixed;
+width:100%;
+top:0;
+z-index:1000;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 60px;
+background:rgba(0,0,0,0.5);
+backdrop-filter:blur(10px);
+}
+
+nav h1{
+font-weight:900;
+font-size:20px;
+color:var(--gold);
+}
+
+nav a{
+margin-left:30px;
+color:#aaa;
+text-decoration:none;
+font-weight:600;
+transition:0.3s;
+}
+
+nav a:hover{color:white;}
+
+/* HERO */
+.hero{
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:left;
+padding:0 60px;
+background:url('https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a') center/cover;
+position:relative;
+z-index:1;
+}
+
+.hero::after{
+content:'';
+position:absolute;
+inset:0;
+background:linear-gradient(to right,rgba(0,0,0,0.9),transparent);
+}
+
+/* HERO CONTENT */
+.hero-content{
+position:relative;
+z-index:2;
+max-width:600px;
+}
+
+/* LOGO */
+.logo-container{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+padding:18px;
+border-radius:20px;
+background:rgba(255,255,255,0.06);
+backdrop-filter:blur(12px);
+box-shadow:0 10px 40px rgba(0,0,0,0.5);
+margin-bottom:20px;
+animation:logoIntro 1.2s ease forwards;
+opacity:0;
+transform:translateY(30px);
+}
+
+.logo-container img{
+width:110px;
+height:auto;
+filter:drop-shadow(0 10px 25px rgba(255,216,77,0.25));
+transition:0.4s ease;
+}
+
+.logo-container:hover img{
+transform:scale(1.08) rotate(-2deg);
+filter:drop-shadow(0 15px 35px rgba(255,216,77,0.5));
+}
+
+@keyframes logoIntro{
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* TEXT */
+.hero h3{
+color:#bbb;
+letter-spacing:2px;
+font-weight:600;
+}
+
+.hero h1{
+font-size:6rem;
+font-weight:900;
+line-height:0.9;
+animation:fadeUp 1s ease forwards;
+}
+
+.hero p{
+margin:20px 0;
+color:#ccc;
+font-size:1.2rem;
+}
+
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(50px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+/* BUTTON */
+.btn{
+padding:18px 50px;
+border:none;
+border-radius:50px;
+background:var(--gold);
+font-weight:800;
+cursor:pointer;
+transition:0.3s;
+}
+
+.btn:hover{
+transform:scale(1.08);
+box-shadow:0 10px 30px rgba(255,216,77,0.3);
+}
+
+/* SECTION */
+.section{
+padding:120px 60px;
+position:relative;
+z-index:1;
+}
+
+.section h2{
+font-size:3rem;
+font-weight:900;
+margin-bottom:40px;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:30px;
+}
+
+.card{
+position:relative;
+height:400px;
+overflow:hidden;
+border-radius:20px;
+cursor:pointer;
+}
+
+.card img{
+width:100%;
+height:100%;
+object-fit:cover;
+transition:0.5s;
+}
+
+.card:hover img{transform:scale(1.1);}
+
+.card::after{
+content:'';
+position:absolute;
+inset:0;
+background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);
+}
+
+.card h3{
+position:absolute;
+bottom:30px;
+left:20px;
+font-size:1.5rem;
+z-index:2;
+}
+
+/* STATS */
+.stats{
+display:flex;
+gap:60px;
+flex-wrap:wrap;
+}
+
+.stat h3{
+font-size:4rem;
+color:var(--gold);
+}
+
+.stat p{color:#aaa;}
+
+/* FORM */
+.form{max-width:600px;}
+
+.form input{
+width:100%;
+padding:15px;
+margin:10px 0;
+background:#111;
+border:none;
+color:white;
+border-radius:10px;
+}
+
+/* FOOTER */
+footer{
+padding:60px;
+text-align:center;
+background:#000;
+color:#666;
+}
+
+/* SCROLL */
+.reveal{
+opacity:0;
+transform:translateY(60px);
+transition:1s;
+}
+
+.reveal.active{
+opacity:1;
+transform:translateY(0);
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🌌 PARTICLES -->
+<canvas id="particles"></canvas>
+
+<nav>
+<h1>USD ⚽</h1>
+<div>
+<a href="#">Home</a>
+<a href="#">Programs</a>
+<a href="#">Register</a>
+</div>
+</nav>
+
+<section class="hero">
+<div class="hero-content">
+
+<div class="logo-container">
+<img src="logo.png" alt="USD Logo">
+</div>
+
+<h3>USD FOOTBALL ACADEMY</h3>
+<h1>OWN THE GAME</h1>
+<p>Train. Compete. Become elite.</p>
+
+<button class="btn">Join Academy</button>
+</div>
+</section>
+
+<section class="section reveal">
+<h2>Programs</h2>
+<div class="grid">
+<div class="card"><img src="p1.png"><h3>Junior Elite</h3></div>
+<div class="card"><img src="p2.png"><h3>Youth Academy</h3></div>
+<div class="card"><img src="p3.png"><h3>Senior Pro</h3></div>
+</div>
+</section>
+
+<section class="section reveal">
+<h2>Stats</h2>
+<div class="stats">
+<div class="stat"><h3>500+</h3><p>Players</p></div>
+<div class="stat"><h3>12</h3><p>Coaches</p></div>
+<div class="stat"><h3>30+</h3><p>Trophies</p></div>
+</div>
+</section>
+
+<section class="section reveal">
+<h2>Register</h2>
+<div class="form">
+<input placeholder="Full Name">
+<input placeholder="Phone">
+<button class="btn">Submit</button>
+</div>
+</section>
+
+<footer>
+<p>© 2026 USD Football Academy</p>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{
+document.querySelectorAll('.reveal').forEach(el=>{
+if(el.getBoundingClientRect().top<window.innerHeight-100){
+el.classList.add('active');
+}
+});
+});
+
+/* 🌌 PARTICLE SYSTEM */
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particlesArray = [];
+
+class Particle {
+constructor(){
+this.x = Math.random() * canvas.width;
+this.y = Math.random() * canvas.height;
+this.size = Math.random() * 2;
+this.speedX = (Math.random() - 0.5) * 0.5;
+this.speedY = (Math.random() - 0.5) * 0.5;
+}
+
+update(){
+this.x += this.speedX;
+this.y += this.speedY;
+
+if(this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+if(this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+}
+
+draw(){
+ctx.fillStyle = "rgba(255, 216, 77, 0.6)";
+ctx.beginPath();
+ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+ctx.fill();
+}
+}
+
+function init(){
+for(let i=0;i<80;i++){
+particlesArray.push(new Particle());
+}
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+for(let p of particlesArray){
+p.update();
+p.draw();
+}
+requestAnimationFrame(animate);
+}
+
+init();
+animate();
+
+window.addEventListener("resize",()=>{
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+});
+</script>
+
+</body>
+</html>
